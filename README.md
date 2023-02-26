@@ -1,3 +1,5 @@
+**warning! the project is not finished yet!**
+
 # news_service
 Another very cool simple project developed during the Rosatom Labs. REST API, which is a service for generating and managing news
 
