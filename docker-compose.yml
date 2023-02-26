@@ -10,7 +10,7 @@ services:
     links:
       - "db:${DB_HOST}"
     volumes:
-      - "./migrations/versions:/car_service/migrations/versions"
+      - "./migrations/versions:/news_service/migrations/versions"
   db:
     image: postgres
     environment:
