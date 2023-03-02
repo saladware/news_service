@@ -51,26 +51,28 @@ docker-compose exec app python -m app.create_admin
 
 
 ### Users
-* [x] создание пользователя
-* [x] авторизация и аутентификация
-* [x] получение, изменение и удаление текущего пользователя
-* [x] смена пароля
-* [x] получения пользователя по id (без его новостей и комментариев)
-* [x] удаление, редактирование, пользователя по id (может только сам пользователь или админ)
+* [x] user creation
+* [x] authorization and authentication
+* [x] getting, changing and deleting the current user
+* [x] change password
+* [x] getting a user by id (without his news and comments)
+* [x] deleting, editing, user by id (only the user or admin can)
 
 ### News
-* [x] создание новости сразу привязывая пользователя
-* [x] удаление и изменение новости (может только автор или админ)
-* [x] получение новости по id
-* [ ] поиск новости по тегу, автору, дате создания
-* [x] добавление и удаление тегов
+* [x] creating news immediately linking the user
+* [x] deleting and changing the news (only the author or admin can)
+* [x] getting news by id
+* [x] adding and removing tags
+* [ ] news search by tag, author, creation date
+* [ ] attaching a photo
 
 ### Comments
-* [ ] создание комментария сразу привязывая пользователя и новость 
-* [ ] редактирование, удаление комментария (может автор или админ)
-* [ ] получение всех новостей пользователя
-* [ ] получение всех комментариев пользователя
-* [ ] получение комментария по id
+* [ ] creating a comment by immediately linking the user and the news 
+* [ ] editing, deleting a comment (maybe the author or admin)
+* [ ] getting all user news
+* [ ] getting all user comments
+* [ ] getting a comment by id
 
 ### Other
 * [x] admin creator cli tool `app/create_admin.py`
+* [ ] logging
