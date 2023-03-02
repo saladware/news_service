@@ -14,9 +14,9 @@ from . import schemas
 from ..config import SECRET_K, ALGORITHM
 from ..exceptions import ItemNotFound, ItemAlreadyExists, AccessDenied, Unauthorized
 
-pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/users/login')
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/users/login")
 
 
 def hash_password(password: str) -> str:
@@ -32,7 +32,7 @@ async def get_user_by_id(session: AsyncSession, user_id: UUID) -> User:
     result: Result = await session.execute(query)
     user = result.scalar_one_or_none()
     if user is None:
-        raise ItemNotFound('user with this id is not found')
+        raise ItemNotFound("user with this id is not found")
     return user
 
 
@@ -41,17 +41,19 @@ async def get_user_by_email(session: AsyncSession, email: str) -> User:
     result: Result = await session.execute(query)
     user = result.scalar_one_or_none()
     if user is None:
-        raise ItemNotFound('user with this email is not found')
+        raise ItemNotFound("user with this email is not found")
     return user
 
 
 async def create_user(session: AsyncSession, data: schemas.RegisterUser) -> User:
-    user = User(**data.dict(exclude={'password'}), hashed_password=hash_password(data.password))
+    user = User(
+        **data.dict(exclude={"password"}), hashed_password=hash_password(data.password)
+    )
     session.add(user)
     try:
         await session.commit()
     except IntegrityError:
-        raise ItemAlreadyExists('user with this email is already exists')
+        raise ItemAlreadyExists("user with this email is already exists")
     await session.refresh(user)
     return user
 
@@ -62,7 +64,7 @@ async def update_user(session: AsyncSession, user: User, data: schemas.UpdateUse
     try:
         await session.commit()
     except IntegrityError:
-        raise ItemAlreadyExists('user with this email is already exists')
+        raise ItemAlreadyExists("user with this email is already exists")
     await session.refresh(user)
 
 
@@ -73,10 +75,12 @@ async def delete_user(session: AsyncSession, user: User):
 
 def check_password(password: str, user: User):
     if not verify_password(password, user.hashed_password):
-        raise Unauthorized('wrong password')
+        raise Unauthorized("wrong password")
 
 
-async def change_password(session: AsyncSession, user: User, data: schemas.ChangePassword):
+async def change_password(
+    session: AsyncSession, user: User, data: schemas.ChangePassword
+):
     check_password(data.old_password, user)
     print(user.hashed_password)
     user.hashed_password = hash_password(data.new_password)

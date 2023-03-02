@@ -10,11 +10,11 @@ from app.database import Base
 
 config = context.config
 
-config.set_section_option(config.config_ini_section, 'DB_USER', DB_USER)
-config.set_section_option(config.config_ini_section, 'DB_PSWD', DB_PSWD)
-config.set_section_option(config.config_ini_section, 'DB_HOST', DB_HOST)
-config.set_section_option(config.config_ini_section, 'DB_PORT', str(DB_PORT))
-config.set_section_option(config.config_ini_section, 'DB_NAME', DB_NAME)
+config.set_section_option(config.config_ini_section, "DB_USER", DB_USER)
+config.set_section_option(config.config_ini_section, "DB_PSWD", DB_PSWD)
+config.set_section_option(config.config_ini_section, "DB_HOST", DB_HOST)
+config.set_section_option(config.config_ini_section, "DB_PORT", str(DB_PORT))
+config.set_section_option(config.config_ini_section, "DB_NAME", DB_NAME)
 
 
 if config.config_file_name is not None:  # noqa
@@ -45,9 +45,7 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()
