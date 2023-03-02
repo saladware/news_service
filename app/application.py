@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 
-from .exceptions import ItemNotFound, ItemAlreadyExists
+from .exceptions import ItemNotFound, ItemAlreadyExists, APIException
 from .users.router import users
 from .news.router import news
 
@@ -11,19 +11,11 @@ app = FastAPI(
 )
 
 
-@app.exception_handler(ItemNotFound)
-async def on_not_found(request: Request, exc: ItemNotFound):
+@app.exception_handler(APIException)
+async def on_not_found(request: Request, exc: APIException):
     return JSONResponse(
-        status_code=status.HTTP_404_NOT_FOUND,
-        content={'detail': 'item not found' if len(exc.args) == 0 else exc.args[0]}
-    )
-
-
-@app.exception_handler(ItemAlreadyExists)
-async def on_already_exists(request: Request, exc: ItemAlreadyExists):
-    return JSONResponse(
-        status_code=status.HTTP_400_BAD_REQUEST,
-        content={'detail': 'item already exists' if len(exc.args) == 0 else exc.args[0]}
+        status_code=exc.code,
+        content={'detail': exc.detail if len(exc.args) == 0 else exc.args[0]}
     )
 
 

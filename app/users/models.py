@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Text, String, text, Enum, DateTime, func, Date
+from sqlalchemy import Column, Text, String, text, Enum, DateTime, func, Date, Integer
 from sqlalchemy.dialects.postgresql import UUID
 
 from ..database import Base
