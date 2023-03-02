@@ -38,7 +38,9 @@ async def create_news(
     return news
 
 
-async def update_news(session: AsyncSession, data: schemas.UpdateNews, news_object: News):
+async def update_news(
+    session: AsyncSession, data: schemas.UpdateNews, news_object: News
+):
     for key, value in data.dict(exclude_none=True).items():
         setattr(news_object, key, value)
     try:
@@ -60,7 +62,7 @@ async def add_tag(session: AsyncSession, news: News, tag: str) -> NewsTag:
     try:
         await session.commit()
     except IntegrityError:
-        raise ItemAlreadyExists(f'tag with this name already exists')
+        raise ItemAlreadyExists(f"tag with this name already exists")
     await session.refresh(tag)
     return tag
 
@@ -70,7 +72,7 @@ async def delete_tag(session: AsyncSession, tag_id: UUID):
     result = await session.execute(query)
     tag = result.scalar_one_or_none()
     if tag is None:
-        raise ItemNotFound('tag with this name is not found')
+        raise ItemNotFound("tag with this name is not found")
     await session.delete(tag)
     await session.commit()
 

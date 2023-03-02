@@ -25,7 +25,9 @@ class News(Base):
     author_id = Column(UUID(as_uuid=True), nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-    tags = relationship("NewsTag", back_populates="news", lazy="immediate", cascade="all")
+    tags = relationship(
+        "NewsTag", back_populates="news", lazy="immediate", cascade="all"
+    )
 
 
 class NewsTag(Base):

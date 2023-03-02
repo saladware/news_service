@@ -22,33 +22,33 @@ async def get_me(user: User = Depends(get_current_user)) -> schemas.User:
 
 @users.get("/{user_id}")
 async def get_user_by_id(
-        user_id: UUID, db: AsyncSession = Depends(get_session)
+    user_id: UUID, db: AsyncSession = Depends(get_session)
 ) -> schemas.User:
     return await service.get_user_by_id(db, user_id)
 
 
 @users.post("/")
 async def register_new_user(
-        data: schemas.RegisterUser, db: AsyncSession = Depends(get_session)
+    data: schemas.RegisterUser, db: AsyncSession = Depends(get_session)
 ) -> schemas.User:
     return await service.create_user(db, data)
 
 
 @users.put("/me")
 async def change_me(
-        data: schemas.UpdateUser,
-        user: User = Depends(get_current_user),
-        db: AsyncSession = Depends(get_session),
+    data: schemas.UpdateUser,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_session),
 ) -> schemas.User:
     await service.update_user(db, user, data)
     return user
 
 
-@users.put('/{user_id}')
+@users.put("/{user_id}")
 async def change_user(
-        data: schemas.UpdateUser,
-        user: User = Depends(can_user_edit),
-        db: AsyncSession = Depends(get_session)
+    data: schemas.UpdateUser,
+    user: User = Depends(can_user_edit),
+    db: AsyncSession = Depends(get_session),
 ) -> schemas.User:
     await service.update_user(db, user, data)
     return user
@@ -56,7 +56,7 @@ async def change_user(
 
 @users.delete("/me")
 async def delete_me(
-        user: User = Depends(get_current_user), db: AsyncSession = Depends(get_session)
+    user: User = Depends(get_current_user), db: AsyncSession = Depends(get_session)
 ):
     await service.delete_user(db, user)
     return {"detail": "success"}
@@ -64,7 +64,7 @@ async def delete_me(
 
 @users.delete("/{user_id}")
 async def delete_user(
-        user: User = Depends(can_user_delete), db: AsyncSession = Depends(get_session)
+    user: User = Depends(can_user_delete), db: AsyncSession = Depends(get_session)
 ):
     await service.delete_user(db, user)
     return {"detail": "success"}
@@ -72,8 +72,8 @@ async def delete_user(
 
 @users.post("/login")
 async def login_for_access_token(
-        form_data: OAuth2PasswordRequestForm = Depends(),
-        db: AsyncSession = Depends(get_session),
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    db: AsyncSession = Depends(get_session),
 ) -> schemas.Token:
     user = await service.authenticate_user(db, form_data.username, form_data.password)
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
@@ -85,9 +85,9 @@ async def login_for_access_token(
 
 @users.put("/password")
 async def change_password(
-        data: schemas.ChangePassword,
-        user: User = Depends(get_current_user),
-        db: AsyncSession = Depends(get_session),
+    data: schemas.ChangePassword,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_session),
 ):
     await service.change_password(db, user, data)
     return {"detail": "success"}

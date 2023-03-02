@@ -8,6 +8,11 @@ Another very cool simple project developed during the Rosatom Labs. REST API, wh
 * [news_service](#newsservice)
   * [How to configure](#how-to-configure)
   * [How to run](#how-to-run)
+  * [Features](#features)
+    * [Users](#users)
+    * [News](#news)
+    * [Comments](#comments)
+    * [Other](#other)
 <!-- TOC -->
 
 <p align="center">
