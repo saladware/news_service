@@ -73,11 +73,11 @@ docker-compose exec app python -m app.create_admin
 * [ ] attaching a photo
 
 ### Comments
-* [ ] creating a comment by immediately linking the user and the news 
-* [ ] editing, deleting a comment (maybe the author or admin)
-* [ ] getting all user news
-* [ ] getting all user comments
-* [ ] getting a comment by id
+* [x] creating a comment by immediately linking the user and the news 
+* [x] editing, deleting a comment
+* [x] getting all user news
+* [x] getting all user comments
+* [x] getting a comment by id
 
 ### Other
 * [x] admin creator cli tool `app/create_admin.py`

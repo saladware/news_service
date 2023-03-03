@@ -22,11 +22,14 @@ class News(Base):
     )
     title = Column(Text, nullable=False, unique=True)
     description = Column(Text, nullable=False)
-    author_id = Column(UUID(as_uuid=True), nullable=False)
+    author_id = Column(UUID(as_uuid=True))
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     tags = relationship(
         "NewsTag", back_populates="news", lazy="immediate", cascade="all"
+    )
+    comments = relationship(
+        "Comment", back_populates="news", lazy="immediate", cascade="all"
     )
 
 
@@ -44,3 +47,18 @@ class NewsTag(Base):
 
     def __str__(self):
         return self.text
+
+
+class Comment(Base):
+    __tablename__ = "comments"
+
+    id = Column(
+        UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()")
+    )
+    content = Column(Text, nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    author_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
+    news_id = Column(UUID(as_uuid=True), ForeignKey("news.id"), nullable=False)
+
+    news = relationship("News", back_populates="comments", lazy="immediate")
+    author = relationship("User", lazy="immediate")

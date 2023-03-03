@@ -41,3 +41,26 @@ class UpdateNews(BaseModel):
 
 class NewsList(BaseModel):
     news: list[News]
+
+
+class CreateComment(BaseModel):
+    content: str
+
+
+class Comment(BaseModel):
+    id: UUID
+    content: str
+    created_at: datetime
+    news_id: UUID
+    author_id: UUID
+
+    class Config:
+        orm_mode = True
+
+
+class CommentList(BaseModel):
+    comments: list[Comment]
+
+
+class EditComment(BaseModel):
+    content: str
