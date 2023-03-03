@@ -68,6 +68,7 @@ docker-compose exec app python -m app.create_admin
 * [x] deleting and changing the news (only the author or admin can)
 * [x] getting news by id
 * [x] adding and removing tags
+* [x] get current user's news
 * [ ] news search by tag, author, creation date
 * [ ] attaching a photo
 

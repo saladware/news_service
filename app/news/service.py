@@ -80,3 +80,9 @@ async def delete_tag(session: AsyncSession, tag_id: UUID):
 async def get_news_tags(session: AsyncSession, news_id: UUID):
     news = await get_news_by_id(session, news_id)
     return news.tags
+
+
+async def get_users_news(session: AsyncSession, user: User) -> list[News]:
+    query = select(News).where(News.author_id == user.id)
+    result = await session.execute(query)
+    return list(result.scalars())

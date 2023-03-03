@@ -37,3 +37,7 @@ class News(BaseModel):
 class UpdateNews(BaseModel):
     title: str | None
     description: str | None
+
+
+class NewsList(BaseModel):
+    news: list[News]
